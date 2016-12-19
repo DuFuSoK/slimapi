@@ -14,14 +14,14 @@
             <div class="form-group">
               <input class="form-control" type="text" ng-model="searchBox">
             </div>
-        </form>
+          </form>
         </div>
         <div class="col-md-4">
           <button class="btn btn-success btn-lg pull-right" type="button" data-toggle="modal" data-target="#modalAdd">Add a New Book</button>
         </div>
       </div>
       <div class="row">
-          <h3>Books</h3>
+        <h3>Books</h3>
           <div class="col-md-12">
             <table class="table">
               <tr>
@@ -32,9 +32,11 @@
               <tr ng-repeat="book in books | filter:searchBox">
                 <td>{{book.id}}</td>
                 <td>{{book.name}}</td>
-                <td><a href="" ng-click="viewBook(book.id)"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalView"><span class="glyphicon glyphicon-eye-open"></span> View</button></a>
-                    <a href="" ng-click="viewBook(book.id)"><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalUpdate"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
-                    <a href="" ng-click="deletBook(book.id)"><button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Delete</button></a></td>
+                <td>
+                  <a href="" ng-click="viewBook(book.id)"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalView"><span class="glyphicon glyphicon-eye-open"></span> View</button></a>
+                  <a href="" ng-click="viewBook(book.id)"><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalUpdate"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
+                  <a href="" ng-click="deletBook(book.id)"><button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
+                </td>
               </tr>
             </table>
           </div>
