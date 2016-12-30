@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<h1>Simple Books Application</h1>
+<div class="row">
+  <div class="col-md-8">
+    <form class="form-inline">
+      <label for="searchbox">Search</label>
+      <div class="form-group">
+        <input class="form-control" type="text" ng-model="searchBox">
+      </div>
+    </form>
+  </div>
+  <div class="col-md-4">
+    <button class="btn btn-success btn-lg pull-right" type="button" data-toggle="modal" data-target="#modalAdd">Add a New Book</button>
+  </div>
+</div>
+<div class="row">
+  <h3>Books</h3>
+    <div class="col-md-12">
+      <table class="table">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Author</th>
+          <th>Published</th>
+          <th>Actions</th>
+        </tr>
+        <tr ng-repeat="book in books | filter:searchBox | startFrom:(currentPage -1)*pageSize | limitTo:pageSize">
+          <td>{{book.id}}</td>
+          <td>{{book.name}}</td>
+          <td>{{book.author}}</td>
+          <td>{{book.year}}</td>
+          <td>
+            <a href="#/detail" ng-click="viewBook(book.id)"><button class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Detail</button></a>
+            <a href="" ng-click="viewBook(book.id)"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalView"><span class="glyphicon glyphicon-eye-open"></span> View</button></a>
+            <a href="" ng-click="viewBook(book.id)"><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalUpdate"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
+            <a href="" ng-click="deletBook(book.id)"><button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
+          </td>
+        </tr>
+      </table>
+      <pagination total-items="books.length" ng-model="currentPage" items-per-page="pageSize"></pagination>
+    </div>
+</div>
+<!-- Modal view-->
+<div id="modalView" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{currentBook.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{currentBook}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal add new -->
+<div id="modalAdd" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add : New Book</h4>
+      </div>
+      <div class="modal-body">
+        <label for="newname">Name of book : </label>
+        <input type="text" ng-model="newname" value="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addBook(newname)" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal update -->
+<div id="modalUpdate" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Book</h4>
+      </div>
+      <div class="modal-body">
+        <label for="newname">Name of book : </label>
+        <input type="text" ng-model="updateName" ng-value="currentBook.name">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="updateBook(currentBook.id)" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

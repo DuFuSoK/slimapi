@@ -7,3 +7,4 @@ require '../vendor/autoload.php';
 $app = new \Slim\App;
 require_once('../app/api/books.php');
 $app->run();
+?>
