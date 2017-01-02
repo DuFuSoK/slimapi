@@ -3,29 +3,29 @@ var app = angular.module("myApp", ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
 (function () {
     'use strict';
-  // routing
+    // routing
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider.when('/book', {
             templateUrl: '/templates/book_list.html',
-            controller: 'myCtrl'
+            controller: 'mainCtrl'
         })
-            .when('/detail', {
+            .when('/detail/:id', {
                 templateUrl: '/templates/book_detail.html',
-                controller: 'myCtrl'
+                controller: 'detailCtrl'
             })
-            .otherwise({redirectTo: '/'});
+            .otherwise({redirectTo: '/book'});
 
         $locationProvider.html5Mode({enabled: true, requireBase: false});
 
     }]);
 
-  // resource service
+    // resource service
     app.factory('Book', function ($resource) {
         return $resource('/api/books/:id', {id: '@id'}, {update: {method: 'PUT'}});
     });
 
-  // controller
-    app.controller("myCtrl", function ($scope, Book) {
+    // controller
+    app.controller("mainCtrl", function ($scope, Book) {
         $scope.pageSize = 5;
         $scope.currentPage = 1;
 
@@ -34,10 +34,11 @@ var app = angular.module("myApp", ['ngResource', 'ngRoute', 'ui.bootstrap']);
             $scope.books = Book.query();
         };
 
-        // view a specific book
+        // get json for specific book
         $scope.viewBook = function (bookId) {
             $scope.currentBook = Book.get({id: bookId});
         };
+
         // delete a specific book
         $scope.deletBook = function (bookId) {
             Book['delete']({id: bookId}, function () {
@@ -63,6 +64,10 @@ var app = angular.module("myApp", ['ngResource', 'ngRoute', 'ui.bootstrap']);
         };
 
         $scope.list();
+    });
+
+    app.controller("detailCtrl", function ($scope, Book, $routeParams) {
+        $scope.currentBook = Book.get({id: $routeParams.id});
     });
 
     // filter for pagination

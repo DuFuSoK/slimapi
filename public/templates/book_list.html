@@ -30,7 +30,7 @@
           <td>{{book.author}}</td>
           <td>{{book.year}}</td>
           <td>
-            <a href="#/detail" ng-click="viewBook(book.id)"><button class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Detail</button></a>
+            <a ng-href="/detail/{{book.id}}"><button class="btn btn-success btn-sm"><span class="glyphicon glyphicon-search"></span> Detail</button></a>
             <a href="" ng-click="viewBook(book.id)"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalView"><span class="glyphicon glyphicon-eye-open"></span> View</button></a>
             <a href="" ng-click="viewBook(book.id)"><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalUpdate"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
             <a href="" ng-click="deletBook(book.id)"><button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
