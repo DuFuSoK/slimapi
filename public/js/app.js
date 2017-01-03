@@ -24,10 +24,23 @@ var app = angular.module("myApp", ['ngResource', 'ngRoute', 'ui.bootstrap']);
         return $resource('/api/books/:id', {id: '@id'}, {update: {method: 'PUT'}});
     });
 
+    app.factory('BookSearch', function ($resource) {
+        return $resource('/api/booksearch/:search', {search: '@search'});
+    });
+
     // controller
-    app.controller("mainCtrl", function ($scope, Book) {
+    app.controller("mainCtrl", function ($scope, Book, BookSearch) {
         $scope.pageSize = 5;
         $scope.currentPage = 1;
+        $scope.searchString = '';
+
+        $scope.mysearch = function (event) {
+            if ($scope.searchString.length >= 3) {
+                $scope.books = BookSearch.query({search: $scope.searchString});
+            } else if ($scope.searchString.length === 2 && event.keyCode === 8) {
+                $scope.books = Book.query();
+            }
+        };
 
         // fetch all books
         $scope.list = function () {

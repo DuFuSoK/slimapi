@@ -1,5 +1,5 @@
 <?php
-// get all books
+  // get all books
   $app->get('/api/books', function(){
     require_once('dbconnect.php');
     $query = "SELECT * FROM bookcase ORDER BY id ASC";
@@ -14,7 +14,25 @@
     }
   });
 
-// get a specific book
+  // get list of books for search
+  $app->get('/api/booksearch/{name}', function($request){
+    require_once('dbconnect.php');
+    $name = $request->getAttribute('name');
+
+    $query = "SELECT * FROM bookcase WHERE name LIKE '%". $name ."%'";
+    $result = $db->query($query);
+    
+    while($row = $result->fetch_assoc()){
+      $data[] = $row;
+    }
+
+    if(isset($data)){
+      header("Content-Type: application/json");
+      echo json_encode($data);
+    }
+  });
+
+  // get a specific book
   $app->get('/api/books/{id}', function($request){
     require_once('dbconnect.php');
     $id = $request->getAttribute('id');
@@ -29,7 +47,7 @@
     }
   });
 
-// add new book
+  // add new book
   $app->post('/api/books', function($request){
     require_once('dbconnect.php');
     $query = "INSERT INTO bookcase (name) VALUES (?)";
@@ -41,7 +59,7 @@
     $stm->execute();
   });
 
-// update a specific book
+  // update a specific book
   $app->put('/api/books/{id}', function($request){
     require_once('dbconnect.php');
     $id = $request->getAttribute('id');
@@ -55,7 +73,7 @@
     $stm->execute();
   });
 
-// delete a specific book
+  // delete a specific book
   $app->delete('/api/books/{id}', function($request){
     require_once('dbconnect.php');
     $id = $request->getAttribute('id');
