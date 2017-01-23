@@ -5,7 +5,7 @@
     <form class="form-inline">
       <label for="searchbox">Search</label>
       <div class="form-group">
-        <input class="form-control" type="text" ng-keyup="mysearch($event)" ng-model="searchString"> <!-- searchBox -->
+        <input class="form-control" type="text" ng-keyup="mysearch()" ng-model="searchString"> <!-- searchBox -->
       </div>
     </form>
   </div>
@@ -16,7 +16,8 @@
 <div class="row">
   <h3>Books</h3>
     <div class="col-md-12">
-      <table class="table" ng-cloak>
+      <a href="/scroll" class="btn btn-warning btn-sm pull-right">Switch to Scroll</a>
+      <table class="table">
         <tr>
           <th>Id</th>
           <th>Name</th>
@@ -24,7 +25,7 @@
           <th>Published</th>
           <th>Actions</th>
         </tr>
-        <tr ng-repeat="book in books | filter:searchBox | startFrom:(currentPage -1)*pageSize | limitTo:pageSize">
+        <tr class="animate-repeat" ng-repeat="book in books">
           <td>{{book.id}}</td>
           <td>{{book.name}}</td>
           <td>{{book.author}}</td>
@@ -37,8 +38,7 @@
           </td>
         </tr>
       </table>
-      <pagination total-items="books.length" ng-model="currentPage" items-per-page="pageSize"></pagination>
-      <p>{{searchResult}}</p>
+      <pagination ng-model="currentPage" total-items="bookCount.count" items-per-page="bookPerPage" ng-change="mysearch()"></pagination>
     </div>
 </div>
 <!-- Modal view-->

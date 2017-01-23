@@ -1,0 +1,17 @@
+{
+  "name": "bookcase",
+  "version": "1.0.0",
+  "description": "Application about books",
+  "main": "book.html",
+  "author": "Dusan Janovsky",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "gulp-ruby-sass": "^2.1.1",
+    "ruby": "^0.6.1",
+    "sass": "^0.5.0"
+  }
+}
